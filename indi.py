@@ -64,10 +64,24 @@ class Individual:
                 cost += self.task.lst_retailers[retailer_id].open_cost
                 cost += self.task.lst_retailers[retailer_id].lease_cost * stock
 
-
-
+        for cid in range(self.task.num_customers):
+            pass
         return cost
     
+    def normal_deli_cost(self, plant_id:int, dc_id:int, retailer_id:int, customer_id:int) -> float:
+        pass
+
+    def direct_ship_t1_cost(self, plant_id:int, dc_id:int, retailer_id:int, customer_id:int) -> float:
+        pass
+
+    def direct_ship_t2_cost(self, plant_id:int, dc_id:int, retailer_id:int, customer_id:int) -> float:
+        pass
+
+    def direct_deli_cost(self, plant_id:int, dc_id:int, retailer_id:int, customer_id:int) -> float:
+        pass
+
+
+
     def __str__(self):
         res = ""
         for cid in range(self.task.num_customers):
