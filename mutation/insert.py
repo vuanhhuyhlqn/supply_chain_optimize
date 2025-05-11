@@ -7,7 +7,7 @@ class InsertionMutation:
 		super().__init__()
 	
 	def mutation(self, p:Individual) -> Individual:
-		off : Individual = p.copy()
+		off : Individual = Individual(p.task, p.gene, p.deli_types)
 
 		pos1 : int = np.random.randint(0, off.task.num_customers) * 3
 		pos2 : int = np.random.randint(0, off.task.num_customers) * 3
