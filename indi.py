@@ -1,4 +1,5 @@
 import numpy as np
+from typing import List
 from task import Task
 from plant import Plant
 from dc import DC
@@ -7,7 +8,7 @@ from customer import Customer
 from utils import dist
 
 class Individual:
-    def __init__(self, task: Task, gene=None):
+    def __init__(self, task: Task, gene=None, deli_types : List[int] = None):
         self.task = task
         if gene is None:
             #random gene
@@ -40,7 +41,22 @@ class Individual:
         pass
 
     def eval(self) -> float:
-        pass
+        cost = 0
+        for dc_id in range(self.task.num_dcs):
+            stock = self.get_dc_stock(dc_id)
+            if stock > 0:
+                cost += self.task.lst_dcs[dc_id].open_cost
+                cost += self.task.lst_dcs[dc_id].lease_cost * stock
+
+        for retailer_id in range(self.task.num_retailers):
+            stock = self.get_retailer_stock(retailer_id)
+            if stock > 0:
+                cost += self.task.lst_retailers[retailer_id].open_cost
+                cost += self.task.lst_retailers[retailer_id].lease_cost * stock
+
+
+
+        return cost
     
     def __str__(self):
         res = ""
