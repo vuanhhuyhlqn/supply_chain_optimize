@@ -5,6 +5,9 @@ class Individual:
     def __init__(self, task: Task):
         self.task = task
     
+    def check_valid(self):
+        pass
+
     def fix(self):
         pass
 
