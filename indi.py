@@ -20,6 +20,11 @@ class Individual:
         else:
             self.gene = gene
 
+        # Delivery type:
+        # 0: nomarl delivery (Plant -> DC -> Retailer -> Customer)
+        # 1: direct shipment (Plant -> Customer)
+        # 2: direct delivery type 1 (Plant -> DC -> Customer)
+        # 3: direct delivery type 2 (Plant -> Retailer -> Customer)
         if deli_types is None:
             self.deli_types = np.random.randint(0, 3, size=self.task.num_customers)
         else:
