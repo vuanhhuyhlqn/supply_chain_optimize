@@ -20,7 +20,6 @@ class Individual:
             self.gene = gene
 
     def check_valid(self) -> bool:
-        print("here")
         for plant_id in range(self.task.num_plants):
             if self.get_plant_demand(plant_id) > self.task.lst_plants[plant_id].output:
                 print("Plant {0} output capacity violated!".format(plant_id))
