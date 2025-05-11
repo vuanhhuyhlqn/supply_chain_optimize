@@ -19,7 +19,7 @@ class Individual:
         else:
             self.gene = gene
 
-        self.fitness = -1
+        self.fitness = None
 
     def check_valid(self) -> bool:
         for plant_id in range(self.task.num_plants):
@@ -70,3 +70,6 @@ class Individual:
             if self.gene[cid * 3 + 2] == retailer_id:
                 res += self.task.lst_customers[cid].demand
         return res
+
+    def __lt__(self, other):
+        return self.fitness < other.fitness
