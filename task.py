@@ -16,7 +16,7 @@ class Task:
 		self.num_retailers = num_retailers
 		self.num_customers = num_customers
 
-		self.lst_plants : List[Customer] = []
+		self.lst_plants : List[Plant] = []
 		self.lst_dcs : List[DC] = []
 		self.lst_retailers : List[Retailer] = []
 		self.lst_customers : List[Customer] = []

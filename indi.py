@@ -18,9 +18,22 @@ class Individual:
                 self.gene[cid * 3 + 2] = np.random.randint(0, self.task.num_retailers)
         else:
             self.gene = gene
-    
+
     def check_valid(self) -> bool:
-        pass
+        print("here")
+        for plant_id in range(self.task.num_plants):
+            if self.get_plant_demand(plant_id) > self.task.lst_plants[plant_id].output:
+                print("Plant {0} output capacity violated!".format(plant_id))
+                return False
+        for dc_id in range(self.task.num_dcs):
+            if self.get_dc_stock(dc_id) > self.task.lst_dcs[dc_id].capacity:
+                print("DC {0} capacity violated!".format(dc_id))
+                return False
+        for retailer_id in range(self.task.num_retailers):
+            if self.get_retailer_stock(retailer_id) > self.task.lst_retailers[retailer_id].capacity:
+                print("Retailer {0} capacity violated!".format(retailer_id))
+                return False
+        return True
 
     def fix(self):
         pass
