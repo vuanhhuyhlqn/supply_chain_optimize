@@ -19,6 +19,7 @@ class InsertionMutation:
 		off.gene[(pos1 + 3) : (pos2 + 3)] = off.gene[pos1 : pos2]
 		off.gene[pos1 : (pos1 + 3)] = insert_unit
 
+		# TODO: do some mutation with the delivery types
 		if off.check_valid() == False:
 			off.fix()
 		return off
