@@ -10,4 +10,9 @@ class Task:
 		self.num_retailers = num_retailers
 		self.num_customers = num_customers
 
+		self.lst_plants = []
+		self.lst_dcs = []
+		self.lst_retailers = []
+		self.lst_customers = []
+
         

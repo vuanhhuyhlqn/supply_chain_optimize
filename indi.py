@@ -19,7 +19,7 @@ class Individual:
         else:
             self.gene = gene
     
-    def check_valid(self):
+    def check_valid(self) -> bool:
         pass
 
     def fix(self):
