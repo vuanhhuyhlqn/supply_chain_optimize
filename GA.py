@@ -32,7 +32,6 @@ class model:
                 pa = self.get_random_indi()
                 pb = self.get_random_indi()
                 oc = self.crossover(pa, pb) #crossover offspring
-                oc.fitness = oc.eval()
                 off_cr.append(oc)
             
             #mutation
@@ -40,7 +39,6 @@ class model:
             while len(off_mut) < num_mutation:
                 p = self.get_random_indi()
                 om = self.mutation(p)
-                om.fitness = om.eval() 
                 off_mut.append(om)
             
             self.pop += off_cr

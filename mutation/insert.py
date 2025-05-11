@@ -22,6 +22,7 @@ class InsertionMutation:
 		# TODO: do some mutation with the delivery types
 		if off.check_valid() == False:
 			off.fix()
+		off.fitness = off.eval()
 		return off
 
 	def __call__(self, p:Individual) -> Individual:

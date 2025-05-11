@@ -22,6 +22,7 @@ class TwoCutCrossover(AbstractCrossover):
         off =  Individual(task=pa.task, gene=gene_o, deli_types=deli_types_o)
         if off.check_valid() == False:
             off.fix()
+        off.fitness = off.eval()
         return off
 
     def __call__(self, pa:Individual, pb:Individual) -> Individual:
