@@ -32,6 +32,7 @@ class Individual:
 
 		self.fitness = None
 
+	# TODO: Fix check valid with delivery type
 	def check_valid(self) -> bool:
 		for plant_id in range(self.task.num_plants):
 			if self.get_plant_demand(plant_id) > self.task.lst_plants[plant_id].output:
