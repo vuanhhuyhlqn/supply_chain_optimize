@@ -2,7 +2,6 @@ import numpy as np
 import os
 import math
 import sys
-from indi import Individual
 
 class Task:
 	def __init__(self, num_plants, num_dcs, num_retailers, num_customers):
