@@ -8,7 +8,7 @@ from customer import Customer
 from utils import dist
 
 class Individual:
-    def __init__(self, task: Task, gene=None, deli_types : List[int] = None):
+    def __init__(self, task: Task, gene=None, deli_types:List[int]=None):
         self.task = task
         if gene is None:
             #random gene
@@ -19,6 +19,11 @@ class Individual:
                 self.gene[cid * 3 + 2] = np.random.randint(0, self.task.num_retailers)
         else:
             self.gene = gene
+
+        if deli_types is None:
+            self.deli_types = np.random.randint(0, 3, size=self.task.num_customers)
+        else:
+            self.deli_types = deli_types
 
         self.fitness = None
 
