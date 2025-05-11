@@ -19,6 +19,8 @@ class Individual:
         else:
             self.gene = gene
 
+        self.fitness = -1
+
     def check_valid(self) -> bool:
         for plant_id in range(self.task.num_plants):
             if self.get_plant_demand(plant_id) > self.task.lst_plants[plant_id].output:
@@ -37,7 +39,7 @@ class Individual:
     def fix(self):
         pass
 
-    def eval(self):
+    def eval(self) -> float:
         pass
     
     def __str__(self):
@@ -48,21 +50,21 @@ class Individual:
             res += "\n"
         return res
     
-    def get_plant_demand(self, plant_id):
+    def get_plant_demand(self, plant_id) -> int:
         res = 0
         for cid in range(self.task.num_customers):
             if self.gene[cid * 3] == plant_id:
                 res += self.task.lst_customers[cid].demand
         return res
     
-    def get_dc_stock(self, dc_id):
+    def get_dc_stock(self, dc_id) -> int:
         res = 0
         for cid in range(self.task.num_customers):
             if self.gene[cid * 3 + 1] == dc_id:
                 res += self.task.lst_customers[cid].demand
         return res
     
-    def get_retailer_stock(self, retailer_id):
+    def get_retailer_stock(self, retailer_id) -> int:
         res = 0
         for cid in range(self.task.num_customers):
             if self.gene[cid * 3 + 2] == retailer_id:
