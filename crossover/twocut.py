@@ -11,8 +11,8 @@ class TwoCutCrossover(AbstractCrossover):
         gene_o = gene_a.copy()
         deli_types_o = pa.deli_types.copy()
 
-        fi_cut : int = np.random.randint(0, len(gene_a))
-        se_cut : int = np.random.randint(0, len(gene_a))
+        fi_cut : int = np.random.randint(0, pa.task.num_customers) * 3
+        se_cut : int = np.random.randint(0, pa.task.num_customers) * 3
 
         if fi_cut > se_cut:
             fi_cut, se_cut = se_cut, fi_cut #swap
