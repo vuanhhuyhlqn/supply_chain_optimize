@@ -84,7 +84,8 @@ class Individual:
 					plant_loads[plant_id] += load
 				else:
 					# Now we go find an available plant for the customer
-
+					plant_id2 = self.find_available_plant(plant_loads=plant_loads, load=load)
+					self.gene[cid * 3] = plant_id2
 				
 				# Fix DC
 				if self.deli_types[cid] == 0 or self.deli_types[cid] == 2:
@@ -122,6 +123,8 @@ class Individual:
 		for plant_id in range(self.task.num_plants):
 			if plant_loads[plant_id] + load <= self.task.lst_plants[plant_id].output:
 				return plant_id
+		print("Data's condition not met")
+		assert(False)
 		return -1
 
 	def find_available_dc(self, dc_loads: List[int], load: int) -> int:
