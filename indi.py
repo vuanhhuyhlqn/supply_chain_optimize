@@ -56,7 +56,7 @@ class Individual:
 				retailer_loads[retailer_id] += self.task.lst_customers[cid].demand
 				if retailer_loads[retailer_id] > self.task.lst_retailers[retailer_id].capacity:
 					print("Retailer {0} capacity violated!".format(retailer_id))
-				return False
+					return False
 							
 		# for dc_id in range(self.task.num_dcs):
 		# 	if self.get_dc_stock(dc_id) > self.task.lst_dcs[dc_id].capacity:
@@ -70,14 +70,23 @@ class Individual:
 		return True
 
 	def fix(self):
+		plant_loads = np.zeros(self.task.num_plants)
 		dc_loads = np.zeros(self.task.num_dcs)
 		retailer_loads = np.zeros(self.task.num_retailers)
-		while self.check_valid == False:
+		while self.check_valid() == False:
 			for cid in range(self.task.num_customers):
+				plant_id = self.gene
 				dc_id = self.gene[cid * 3 + 1]
 				retailer_id = self.gene[cid * 3 + 2]
 				load = self.task.lst_customers[cid].demand
+				# Fix Plant
+				if plant_loads[plant_id] + load <= self.task.lst_plants[plant_id].output:
+					plant_loads[plant_id] += load
+				else:
+					# Now we go find an available plant for the customer
 
+				
+				# Fix DC
 				if self.deli_types[cid] == 0 or self.deli_types[cid] == 2:
 					if dc_loads[dc_id] + load <= self.task.lst_dcs[dc_id].capacity:
 						dc_loads[dc_id] += load
@@ -90,9 +99,10 @@ class Individual:
 							break # Let's check again
 						else:
 							# Found an available dc
-							self.genes[cid * 3 + 1] = dc_id2
+							self.gene[cid * 3 + 1] = dc_id2
 							break
-
+				
+				# Fix retailer
 				if self.deli_types[cid] == 0 or self.deli_types[cid] == 3:
 					if retailer_loads[retailer_id] + load <= self.task.lst_retailers[retailer_id].capacity:
 						retailer_loads[retailer_id] += load
@@ -105,9 +115,14 @@ class Individual:
 							break # let's check again
 						else:
 							# Found an available retailer
-							self.genes[cid * 3 + 2] = retailer_id2
+							self.gene[cid * 3 + 2] = retailer_id2
 							break
-							
+
+	def find_available_plant(self, plant_loads: List[int], load: int) -> int:						
+		for plant_id in range(self.task.num_plants):
+			if plant_loads[plant_id] + load <= self.task.lst_plants[plant_id].output:
+				return plant_id
+		return -1
 
 	def find_available_dc(self, dc_loads: List[int], load: int) -> int:
 		for dc_id in range(self.task.num_dcs):
