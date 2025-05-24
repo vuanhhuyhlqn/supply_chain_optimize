@@ -38,14 +38,34 @@ class Individual:
 			if self.get_plant_demand(plant_id) > self.task.lst_plants[plant_id].output:
 				print("Plant {0} output capacity violated!".format(plant_id))
 				return False
-		for dc_id in range(self.task.num_dcs):
-			if self.get_dc_stock(dc_id) > self.task.lst_dcs[dc_id].capacity:
-				print("DC {0} capacity violated!".format(dc_id))
+		dc_loads = np.zeros(self.task.num_dcs)
+		retailer_loads = np.zeros(self.task.num_retailers)
+		
+		for cid in range(self.task.num_customers):
+			dc_id = self.gene[cid * 3 + 1]
+			retailer_id = self.gene[cid * 3 + 2]
+			
+			if self.deli_types == 0 or self.deli_types == 2:
+				dc_loads[dc_id] += self.task.lst_customers[cid].demand
+				if dc_loads[dc_id] > self.task.lst_dcs[dc_id].capacity:
+					print("DC {0} capacity violated!".format(dc_id))
+					return False
+			
+			if self.deli_types == 0 or self.deli_types == 3:
+				retailer_loads[retailer_id] += self.task.lst_customers[cid].demand
+				if retailer_loads[retailer_id] > self.task.lst_retailers[retailer_id].capacity:
+					print("Retailer {0} capacity violated!".format(retailer_id))
 				return False
-		for retailer_id in range(self.task.num_retailers):
-			if self.get_retailer_stock(retailer_id) > self.task.lst_retailers[retailer_id].capacity:
-				print("Retailer {0} capacity violated!".format(retailer_id))
-				return False
+							
+		# for dc_id in range(self.task.num_dcs):
+		# 	if self.get_dc_stock(dc_id) > self.task.lst_dcs[dc_id].capacity:
+		# 		print("DC {0} capacity violated!".format(dc_id))
+		# 		return False
+		# for retailer_id in range(self.task.num_retailers):
+		# 	if self.get_retailer_stock(retailer_id) > self.task.lst_retailers[retailer_id].capacity:
+		# 		print("Retailer {0} capacity violated!".format(retailer_id))
+		# 		return False
+		
 		return True
 
 	def fix(self):
@@ -107,21 +127,21 @@ class Individual:
 			res += "Plant {0} -> DC {1} -> Retailer {2}".format(self.gene[cid * 3], self.gene[cid * 3 + 1], self.gene[cid * 3 + 2])
 			res += "\n"
 		return res
-    
+	
 	def get_plant_demand(self, plant_id) -> int:
 		res = 0
 		for cid in range(self.task.num_customers):
 			if self.gene[cid * 3] == plant_id:
 				res += self.task.lst_customers[cid].demand
 		return res
-    
+	
 	def get_dc_stock(self, dc_id) -> int:
 		res = 0
 		for cid in range(self.task.num_customers):
 			if self.gene[cid * 3 + 1] == dc_id:
 				res += self.task.lst_customers[cid].demand
 		return res
-    
+	
 	def get_retailer_stock(self, retailer_id) -> int:
 		res = 0
 		for cid in range(self.task.num_customers):
