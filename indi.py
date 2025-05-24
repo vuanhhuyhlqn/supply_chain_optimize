@@ -26,7 +26,7 @@ class Individual:
 		# 2: direct delivery type 1 (Plant -> DC -> Customer)
 		# 3: direct delivery type 2 (Plant -> Retailer -> Customer)
 		if deli_types is None:
-			self.deli_types = np.random.randint(0, 3, size=self.task.num_customers)
+			self.deli_types = np.random.randint(0, 4, size=self.task.num_customers)
 		else:
 			self.deli_types = deli_types
 
@@ -45,13 +45,13 @@ class Individual:
 			dc_id = self.gene[cid * 3 + 1]
 			retailer_id = self.gene[cid * 3 + 2]
 			
-			if self.deli_types == 0 or self.deli_types == 2:
+			if self.deli_types[cid] == 0 or self.deli_types[cid] == 2:
 				dc_loads[dc_id] += self.task.lst_customers[cid].demand
 				if dc_loads[dc_id] > self.task.lst_dcs[dc_id].capacity:
 					print("DC {0} capacity violated!".format(dc_id))
 					return False
 			
-			if self.deli_types == 0 or self.deli_types == 3:
+			if self.deli_types[cid] == 0 or self.deli_types[cid] == 3:
 				retailer_loads[retailer_id] += self.task.lst_customers[cid].demand
 				if retailer_loads[retailer_id] > self.task.lst_retailers[retailer_id].capacity:
 					print("Retailer {0} capacity violated!".format(retailer_id))
