@@ -1,4 +1,5 @@
 import numpy as np
+import random
 from typing import List
 from task import Task
 from plant import Plant
@@ -69,7 +70,51 @@ class Individual:
 		return True
 
 	def fix(self):
+		dc_loads = np.zeros(self.task.num_dcs)
+		retailer_loads = np.zeros(self.task.num_retailers)
+		while self.check_valid == False:
+			for cid in range(self.task.num_customers):
+				dc_id = self.gene[cid * 3 + 1]
+				retailer_id = self.gene[cid * 3 + 2]
+				load = self.task.lst_customers[cid].demand
+
+				if self.deli_types[cid] == 0 or self.deli_types[cid] == 2:
+					if dc_loads[dc_id] + load <= self.task.lst_dcs[dc_id].capacity:
+						dc_loads[dc_id] += load
+					else: 
+						# Now we go find an available dc for the customer
+						dc_id2 = self.find_available_dc(dc_loads=dc_loads, load=load)
+						if dc_id2 == -1:
+							# Can't find an available dc so we assign a new deli type
+							self.deli_types[cid] = random.choice([1, 3])
+							break # Let's check again
+						else:
+							# Found an available dc
+							self.genes[cid * 3 + 1] = dc_id2
+							break
+
+				if self.deli_types[cid] == 0 or self.deli_types[cid] == 3:
+					if retailer_loads[retailer_id] + load <= self.task.lst_retailers[retailer_id].capacity:
+						retailer_loads[retailer_id] += load
+					else:
+						# Now we go find an available retailer for the customer
+						retailer_id2 = self.find_available_retailer(retailer_loads=retailer_loads, load=load)
+						if retailer_id2 == -1:
+							# Can't find an available retailer so we assign a new deli type
+							self.deli_types[cid] = random.choice([1, 2])
+							break # let's check again
+						else:
+							# Found an available retailer
+							self.genes[cid * 3 + 2] = retailer_id2
+							break
+							
+
+	def find_available_dc(self, dc_loads: List[int], load: int) -> int:
 		pass
+	
+	def find_available_retailer(self, retailer_loads: List[int], load: int) -> int:
+		pass
+
 
 	def eval(self) -> float:
 		cost = 0
