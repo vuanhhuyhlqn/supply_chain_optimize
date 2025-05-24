@@ -21,6 +21,11 @@ class model:
         self.pop : List[Individual] = []
         while len(self.pop) < self.pop_size:
             indi = Individual(task)
+            
+            if indi.check_valid() == False:
+                # If an invalid individual is generated, we go fix it
+                indi.fix()
+            
             indi.fitness = indi.eval()
             self.pop.append(indi)
 
