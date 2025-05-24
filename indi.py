@@ -197,26 +197,26 @@ class Individual:
 			res += "\n"
 		return res
 	
-	def get_plant_demand(self, plant_id) -> int:
-		res = 0
-		for cid in range(self.task.num_customers):
-			if self.gene[cid * 3] == plant_id:
-				res += self.task.lst_customers[cid].demand
-		return res
+	# def get_plant_demand(self, plant_id) -> int:
+	# 	res = 0
+	# 	for cid in range(self.task.num_customers):
+	# 		if self.gene[cid * 3] == plant_id:
+	# 			res += self.task.lst_customers[cid].demand
+	# 	return res
 	
-	def get_dc_stock(self, dc_id) -> int:
-		res = 0
-		for cid in range(self.task.num_customers):
-			if self.gene[cid * 3 + 1] == dc_id:
-				res += self.task.lst_customers[cid].demand
-		return res
+	# def get_dc_stock(self, dc_id) -> int:
+	# 	res = 0
+	# 	for cid in range(self.task.num_customers):
+	# 		if self.gene[cid * 3 + 1] == dc_id:
+	# 			res += self.task.lst_customers[cid].demand
+	# 	return res
 	
-	def get_retailer_stock(self, retailer_id) -> int:
-		res = 0
-		for cid in range(self.task.num_customers):
-			if self.gene[cid * 3 + 2] == retailer_id:
-				res += self.task.lst_customers[cid].demand
-		return res
+	# def get_retailer_stock(self, retailer_id) -> int:
+	# 	res = 0
+	# 	for cid in range(self.task.num_customers):
+	# 		if self.gene[cid * 3 + 2] == retailer_id:
+	# 			res += self.task.lst_customers[cid].demand
+	# 	return res
 
 	def __lt__(self, other):
 		return self.fitness < other.fitness
