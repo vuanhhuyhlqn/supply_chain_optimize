@@ -110,10 +110,16 @@ class Individual:
 							
 
 	def find_available_dc(self, dc_loads: List[int], load: int) -> int:
-		pass
+		for dc_id in range(self.task.num_dcs):
+			if dc_loads[dc_id] + load <= self.task.lst_dcs[dc_id].capacity:
+				return dc_id
+		return -1
 	
 	def find_available_retailer(self, retailer_loads: List[int], load: int) -> int:
-		pass
+		for retailer_id in range(self.task.num_dcs):
+			if retailer_loads[retailer_id] + load <= self.task.lst_retailers[retailer_id].capacity:
+				return retailer_id
+		return -1
 
 
 	def eval(self) -> float:
