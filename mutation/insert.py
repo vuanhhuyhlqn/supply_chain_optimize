@@ -6,7 +6,7 @@ class InsertionMutation:
 	def __init__(self):
 		super().__init__()
 	
-	def mutation(self, p:Individual) -> Individual:
+	def mutation(self, p:Individual, deli_mut_rate=0.3) -> Individual:
 		off : Individual = Individual(p.task, p.gene, p.deli_types)
 
 		pos1 : int = np.random.randint(0, off.task.num_customers) * 3
@@ -19,7 +19,10 @@ class InsertionMutation:
 		off.gene[(pos1 + 3) : (pos2 + 3)] = off.gene[pos1 : pos2]
 		off.gene[pos1 : (pos1 + 3)] = insert_unit
 
-		# TODO: do some mutation with the delivery types
+		for cid in range(off.task.num_customers):
+			if np.random.rand() < deli_mut_rate:
+				off.deli_types[cid] = np.random.randint(0, 4)
+		
 		if off.check_valid() == False:
 			off.fix()
 		off.fitness = off.eval()

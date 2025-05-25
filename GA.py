@@ -9,7 +9,7 @@ from indi import Individual
 from crossover import *
 from mutation import *
 
-class model:
+class Model:
     def __init__(self, pop_size, 
                  task : Task, 
                  crossover: AbstractCrossover, 
@@ -37,6 +37,9 @@ class model:
                 pa = self.get_random_indi()
                 pb = self.get_random_indi()
                 oc = self.crossover(pa, pb) #crossover offspring
+                if oc.check_valid() == False:
+                    oc.fix()
+                oc.fitness = oc.eval()
                 off_cr.append(oc)
             
             #mutation
@@ -44,6 +47,9 @@ class model:
             while len(off_mut) < num_mutation:
                 p = self.get_random_indi()
                 om = self.mutation(p)
+                if om.check_valid() == False:
+                    om.fix()
+                om.fitness = om.eval()
                 off_mut.append(om)
             
             self.pop += off_cr
