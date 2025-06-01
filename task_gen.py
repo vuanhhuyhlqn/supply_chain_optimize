@@ -148,4 +148,4 @@ class TaskGenerator:
                                     coord_y=coord_y,
                                     demand=customer_demand)
 
-                task.add_customer(Customer)
+                task.add_customer(customer)
