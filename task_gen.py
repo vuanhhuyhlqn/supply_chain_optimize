@@ -1,5 +1,10 @@
 from task import Task
+import numpy as np
 from typing import List
+from plant import Plant
+from dc import DC
+from retailer import Retailer
+from customer import Customer
 
 class TaskGenerator:
     def __init__(self, num_tasks):
@@ -42,11 +47,30 @@ class TaskGenerator:
 
     def gen(self):
         lst_tasks : List[Task] = []
+
+        coord_lb = self.coord_bounds[0]
+        coord_ub = self.coord_bounds[1]
+
         for i in range(self.num_tasks):
             task = Task(num_entities=self.num_entities,
                         num_plants=self.num_plants,
                         num_dcs=self.num_dcs,
                         num_retailers=self.num_retailers,
                         num_customers=self.num_customers)
+            entity_cnt = 0
+            for plant_id in range(self.num_plants):
+                entity_cnt += 1
+
+                # Plant output bounds
+                plant_output_lb = self.plant_output_bounds[0]
+                plant_output_ub = self.plant_output_bounds[1]
+
+                coord_x = np.random.uniform(coord_lb, coord_ub)
+                coord_y = np.random.uniform(coord_lb, coord_ub)
+                output = np.random.uniform(plant_output_lb, plant_output_ub)
+                plant = Plant(entity_id=entity_cnt, coord_x=coord_x, coord_y=coord_y, output=output)
+                
+                task.add_plant(plant)
+
             
             
