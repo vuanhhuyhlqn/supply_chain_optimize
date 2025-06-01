@@ -1,5 +1,6 @@
 from .abstract import AbstractLocalSearch
 from indi import Individual
+import random
 
 class SimpleLocalSearch(AbstractLocalSearch):
 	def __init__(self):
@@ -17,7 +18,9 @@ class SimpleLocalSearch(AbstractLocalSearch):
 		best_deli_types_x = deli_types_x.copy()
 		best_fitness = p.fitness
 
-		for cid in range(p.task.num_customers):
+		lst_search_customer = random.sample(range(0, p.task.num_customers), 5)
+
+		for cid in lst_search_customer:
 			for new_deli_type in range(4):
 				deli_types_x[cid] = new_deli_type
 				x = Individual(task=task, gene=gene_x, deli_types=deli_types_x)

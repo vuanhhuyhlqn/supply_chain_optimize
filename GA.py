@@ -74,13 +74,13 @@ class Model:
                 off_ls.append(ols)
             
             self.pop += off_ls
-            
+
             self.pop = sorted(self.pop)[:self.pop_size]
             
             best_fitness = self.pop[0].fitness
 
-            if len(self.bfs) > 5:
-                if isclose(best_fitness, self.bfs[-5]):
+            if len(self.bfs) > 10:
+                if isclose(best_fitness, self.bfs[-10]):
                     print("EARLY STOP")
                     # print("Best found solution:")
                     # print(self.pop[0])
