@@ -21,7 +21,7 @@ class Task:
 		
 		self.a = np.random.uniform(0.8, 1.2, size=4)
 		b_max = 500
-		self.b = np.random.unfirom(0, b_max, size=4)
+		self.b = np.random.uniform(0, b_max, size=4)
 		
 	def add_plant(self, plant: Plant):
 		self.lst_plants.append(plant)

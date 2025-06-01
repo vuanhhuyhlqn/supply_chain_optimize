@@ -84,6 +84,8 @@ class Individual:
 				else:
 					# Now we go find an available plant for the customer
 					plant_id2 = self.find_available_plant(plant_loads=plant_loads, load=load)
+					if plant_id2 == -1:
+						return
 					self.gene[cid * 3] = plant_id2
 				
 				# Fix DC
@@ -117,14 +119,17 @@ class Individual:
 							# Found an available retailer
 							self.gene[cid * 3 + 2] = retailer_id2
 							break
+	def reset_plant(self):
+		for cid in range(self.task.num_customers):
+				self.gene[cid * 3] = np.random.randint(0, self.task.num_plants)
 
-	def find_available_plant(self, plant_loads: List[int], load: int) -> int:						
+	def find_available_plant(self, plant_loads: List[int], load: int) -> int:				
 		for plant_id in range(self.task.num_plants):
 			if plant_loads[plant_id] + load <= self.task.lst_plants[plant_id].output:
 				return plant_id
-		print("Data's condition not met")
-		assert(False)
+		self.reset_plant()
 		return -1
+
 
 	def find_available_dc(self, dc_loads: List[int], load: int) -> int:
 		for dc_id in range(self.task.num_dcs):

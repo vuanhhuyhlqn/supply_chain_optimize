@@ -22,7 +22,7 @@ class Model:
         while len(self.pop) < self.pop_size:
             indi = Individual(task)
             
-            if indi.check_valid() == False:
+            while indi.check_valid() == False:
                 # If an invalid individual is generated, we go fix it
                 indi.fix()
             
@@ -30,14 +30,14 @@ class Model:
             self.pop.append(indi)
 
     def fit(self, num_gen, num_crossover, num_mutation, monitor=True, monitor_rate=5):
-        for gen in range(num_gen):
+        for gen in range(num_gen + 1):
             #crossover
             off_cr : List[Individual] = []
             while len(off_cr) < num_crossover:
                 pa = self.get_random_indi()
                 pb = self.get_random_indi()
                 oc = self.crossover(pa, pb) #crossover offspring
-                if oc.check_valid() == False:
+                while oc.check_valid() == False:
                     oc.fix()
                 oc.fitness = oc.eval()
                 off_cr.append(oc)
@@ -47,7 +47,7 @@ class Model:
             while len(off_mut) < num_mutation:
                 p = self.get_random_indi()
                 om = self.mutation(p)
-                if om.check_valid() == False:
+                while om.check_valid() == False:
                     om.fix()
                 om.fitness = om.eval()
                 off_mut.append(om)
