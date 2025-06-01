@@ -19,20 +19,26 @@ class TaskGenerator:
                 retailer_lease_cost_bounds: List[int],
                 retailer_open_cost_bounds: List[int],
                 customer_demand_bounds: List[int]):
+        
         self.num_plants = num_plants
         self.num_dcs = num_dcs
         self.num_retailers = num_retailers
         self.num_customers = num_customers
+
         self.coord_bounds = coord_bounds
+        
         self.plant_output_bounds = plant_output_bounds
         self.dc_cap_bounds = dc_cap_bounds
         self.retailer_cap_bounds = retailer_cap_bounds
+        
         self.dc_lease_cost_bounds = dc_lease_cost_bounds
         self.dc_open_cost_bounds = dc_open_cost_bounds
+        
         self.retailer_lease_cost_bounds = retailer_lease_cost_bounds
         self.retailer_open_cost_bounds = retailer_open_cost_bounds
-        self.customer_demand_bounds = customer_demand_bounds
         
+        self.customer_demand_bounds = customer_demand_bounds
+
     def gen(self):
         lst_tasks : List[Task] = []
         for i in range(self.num_tasks):
