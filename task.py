@@ -19,8 +19,9 @@ class Task:
 		self.lst_retailers : List[Retailer] = []
 		self.lst_customers : List[Customer] = []
 		
-		self.a = np.zeros(4)
-		self.b = np.zeros(4)
+		self.a = np.random.uniform(0.8, 1.2, size=4)
+		b_max = 500
+		self.b = np.random.unfirom(0, b_max, size=4)
 		
 	def add_plant(self, plant: Plant):
 		self.lst_plants.append(plant)
