@@ -2,8 +2,8 @@ import numpy as np
 from entity import Entity
 
 class DC(Entity):
-	def __init__(self, coord_x, coord_y, capacity, lease_cost, open_cost):
-		super().__init__(coord_x, coord_y)
+	def __init__(self, entity_id, coord_x, coord_y, capacity, lease_cost, open_cost):
+		super().__init__(entity_id, coord_x, coord_y)
 		self.capacity = capacity
 		self.lease_cost = lease_cost
 		self.open_cost = open_cost
