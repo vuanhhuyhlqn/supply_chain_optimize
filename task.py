@@ -21,5 +21,14 @@ class Task:
 		
 		self.coefficient_matrix = np.zeros(shape=(self.num_entities, self.num_entities))
 		
-
-		
+	def add_plant(self, plant: Plant):
+		self.lst_plants.append(plant)
+	
+	def add_dc(self, dc: DC):
+		self.lst_dcs.append(dc)
+	
+	def add_retailer(self, retailer: Retailer):
+		self.lst_retailers.append(retailer)
+	
+	def add_customer(self, customer: Customer):
+		self.lst_customers.append(customer)

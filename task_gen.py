@@ -24,6 +24,7 @@ class TaskGenerator:
         self.num_dcs = num_dcs
         self.num_retailers = num_retailers
         self.num_customers = num_customers
+        self.num_entities = self.num_plants + self.num_dcs + self.num_retailers + self.num_customers
 
         self.coord_bounds = coord_bounds
         
@@ -42,8 +43,10 @@ class TaskGenerator:
     def gen(self):
         lst_tasks : List[Task] = []
         for i in range(self.num_tasks):
-            task = Task(num_plants=self.num_plants,
+            task = Task(num_entities=self.num_entities,
+                        num_plants=self.num_plants,
                         num_dcs=self.num_dcs,
                         num_retailers=self.num_retailers,
                         num_customers=self.num_customers)
+            
             
