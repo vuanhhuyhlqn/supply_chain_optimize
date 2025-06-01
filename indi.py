@@ -171,22 +171,22 @@ class Individual:
 	def normal_deli_cost(self, plant_id:int, dc_id:int, retailer_id:int, customer_id:int) -> float:
 		plant, dc, retailer, customer = get_route_entities(self.task, plant_id, dc_id, retailer_id, customer_id)
 		load = customer.demand
-		return load * (dist(plant, dc) + dist(dc, retailer) + dist(retailer, customer))
+		return load * (dist(plant, dc) + dist(dc, retailer) + dist(retailer, customer) + 3 * self.task.b[0]) * self.task.a[0]
 
 	def direct_deli_t1_cost(self, plant_id:int, dc_id:int, retailer_id:int, customer_id:int) -> float:
 		plant, dc, retailer, customer = get_route_entities(self.task, plant_id, dc_id, retailer_id, customer_id)
 		load = customer.demand
-		return load * (dist(plant, dc) + dist(dc, customer))
+		return load * (dist(plant, dc) + dist(dc, customer) + 2 * self.task.b[2]) * self.task.a[2]
 
 	def direct_deli_t2_cost(self, plant_id:int, dc_id:int, retailer_id:int, customer_id:int) -> float:
 		plant, dc, retailer, customer = get_route_entities(self.task, plant_id, dc_id, retailer_id, customer_id)
 		load = customer.demand
-		return load * (dist(plant, retailer) + dist(retailer, customer))
+		return load * (dist(plant, retailer) + dist(retailer, customer) + 2 * self.task.b[3]) * self.task.a[3]
 
 	def direct_ship_cost(self, plant_id:int, dc_id:int, retailer_id:int, customer_id:int) -> float:
 		plant, dc, retailer, customer = get_route_entities(self.task, plant_id, dc_id, retailer_id, customer_id)
 		load = customer.demand
-		return load * dist(plant, customer)
+		return load * (dist(plant, customer) + self.task.b[1])* self.task.a[1]
 
 	def __str__(self):
 		res = ""

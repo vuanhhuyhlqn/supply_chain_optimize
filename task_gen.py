@@ -149,3 +149,6 @@ class TaskGenerator:
                                     demand=customer_demand)
 
                 task.add_customer(customer)
+            
+            lst_tasks.append(task)
+        return lst_tasks

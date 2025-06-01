@@ -19,8 +19,8 @@ class Task:
 		self.lst_retailers : List[Retailer] = []
 		self.lst_customers : List[Customer] = []
 		
-		self.a_mat = np.zeros(shape=(self.num_entities, self.num_entities, 4))
-		self.b_mat = np.zeros(shape=(self.num_entities, self.num_entities, 4))
+		self.a = np.zeros(4)
+		self.b = np.zeros(4)
 		
 	def add_plant(self, plant: Plant):
 		self.lst_plants.append(plant)
