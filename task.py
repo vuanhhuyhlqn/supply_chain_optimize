@@ -1,7 +1,4 @@
 import numpy as np
-import os
-import math
-import sys
 from typing import List
 from plant import Plant
 from dc import DC
@@ -10,7 +7,8 @@ from customer import Customer
 
 
 class Task:
-	def __init__(self, num_plants, num_dcs, num_retailers, num_customers):
+	def __init__(self, num_entities, num_plants, num_dcs, num_retailers, num_customers):
+		self.num_entities = num_entities
 		self.num_plants = num_plants
 		self.num_dcs = num_dcs
 		self.num_retailers = num_retailers
@@ -20,5 +18,7 @@ class Task:
 		self.lst_dcs : List[DC] = []
 		self.lst_retailers : List[Retailer] = []
 		self.lst_customers : List[Customer] = []
+
+        
 
         
