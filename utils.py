@@ -17,5 +17,3 @@ def get_route_entities(task:Task, plant_id:int, dc_id:int, retailer_id:int, cust
     retailer = task.lst_retailers[retailer_id]
     customer = task.lst_customers[customer_id]
     return plant, dc, retailer, customer
-
-#TODO: coefficent for specific pair of entities
