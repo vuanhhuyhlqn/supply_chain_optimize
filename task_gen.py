@@ -101,3 +101,34 @@ class TaskGenerator:
                         open_cost=dc_open_cost)
                 
                 task.add_dc(dc)
+
+            for i in range(self.num_retailers):
+                entity_cnt += 1
+
+                # Retailer capacity bounds
+                retailer_cap_lb = self.retailer_cap_bounds[0]
+                retailer_cap_ub = self.retailer_cap_bounds[1]
+
+                # Retailer lease cost bounds
+                retailer_lease_cost_lb = self.retailer_lease_cost_bounds[0]
+                retailer_lease_cost_ub = self.retailer_lease_cost_bounds[1]
+
+                # Retailer lease cost bounds
+                retailer_open_cost_lb = self.retailer_open_cost_bounds[0]
+                retailer_open_cost_ub = self.retailer_open_cost_bounds[1]
+                
+                coord_x = np.random.uniform(coord_lb, coord_ub)
+                coord_y = np.random.uniform(coord_lb, coord_ub)
+                retailer_cap = np.random.randint(retailer_cap_lb, retailer_cap_ub)
+                retailer_lease_cost = np.random.uniform(retailer_lease_cost_lb, retailer_lease_cost_ub)
+                retailer_open_cost = np.random.uniform(retailer_open_cost_lb, retailer_open_cost_ub)
+
+                retailer = Retailer(entity_id=entity_cnt, 
+                        coord_x=coord_x, 
+                        coord_y=coord_y, 
+                        capacity=retailer_cap, 
+                        lease_cost=retailer_lease_cost, 
+                        open_cost=retailer_open_cost)
+                
+                task.add_retailer(retailer)
+           
