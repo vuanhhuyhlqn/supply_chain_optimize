@@ -132,3 +132,20 @@ class TaskGenerator:
                 
                 task.add_retailer(retailer)
            
+            for i in range(self.num_customers):
+                entity_cnt += 1
+
+                coord_x = np.random.uniform(coord_lb, coord_ub)
+                coord_y = np.random.uniform(coord_lb, coord_ub)
+
+                customer_demand_lb = self.customer_demand_bounds[0]
+                customer_demand_ub = self.customer_demand_bounds[1]
+
+                customer_demand = np.random.randint(customer_demand_lb, customer_demand_ub)
+
+                customer = Customer(entity_id=entity_cnt,
+                                    coord_x=coord_x,
+                                    coord_y=coord_y,
+                                    demand=customer_demand)
+
+                task.add_customer(Customer)
