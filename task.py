@@ -4,7 +4,7 @@ from plant import Plant
 from dc import DC
 from retailer import Retailer
 from customer import Customer
-
+import pickle
 
 class Task:
 	def __init__(self, num_entities, num_plants, num_dcs, num_retailers, num_customers):
@@ -19,8 +19,8 @@ class Task:
 		self.lst_retailers : List[Retailer] = []
 		self.lst_customers : List[Customer] = []
 		
-		self.a = np.random.uniform(0.8, 1.2, size=4)
-		b_max = 500
+		self.a = np.random.uniform(0.8, 1.5, size=4)
+		b_max = np.random.uniform(0, 1000)
 		self.b = np.random.uniform(0, b_max, size=4)
 	
 	def check_condition(self) -> bool:
@@ -59,3 +59,8 @@ class Task:
 	
 	def add_customer(self, customer: Customer):
 		self.lst_customers.append(customer)
+		
+def pickle_task(task: Task, file_path):
+	with open(file_path, 'wb') as f:  # open a text file
+		pickle.dump(task, f) # serialize the list
+

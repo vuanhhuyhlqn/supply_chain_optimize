@@ -33,7 +33,6 @@ class Individual:
 
 		self.fitness = None
 
-	@jit(nopython=True)
 	def check_valid(self) -> bool:
 		for plant_id in range(self.task.num_plants):
 			if self.get_plant_demand(plant_id) > self.task.lst_plants[plant_id].output:
@@ -69,7 +68,6 @@ class Individual:
 		
 		return True
 	
-	@jit(nopython=True)
 	def fix(self):
 		plant_loads = np.zeros(self.task.num_plants)
 		dc_loads = np.zeros(self.task.num_dcs)
@@ -120,13 +118,11 @@ class Individual:
 						else:
 							# Found an available retailer
 							self.gene[cid * 3 + 2] = retailer_id2
-							break
-	@jit(nopython=True)						
+							break						
 	def reset_plant(self):
 		for cid in range(self.task.num_customers):
 				self.gene[cid * 3] = np.random.randint(0, self.task.num_plants)
 
-	@jit(nopython=True)
 	def find_available_plant(self, plant_loads: List[int], load: int) -> int:				
 		for plant_id in range(self.task.num_plants):
 			if plant_loads[plant_id] + load <= self.task.lst_plants[plant_id].output:
@@ -134,21 +130,18 @@ class Individual:
 		self.reset_plant()
 		return -1
 
-	@jit(nopython=True)
 	def find_available_dc(self, dc_loads: List[int], load: int) -> int:
 		for dc_id in range(self.task.num_dcs):
 			if dc_loads[dc_id] + load <= self.task.lst_dcs[dc_id].capacity:
 				return dc_id
 		return -1
 	
-	@jit(nopython=True)
 	def find_available_retailer(self, retailer_loads: List[int], load: int) -> int:
 		for retailer_id in range(self.task.num_dcs):
 			if retailer_loads[retailer_id] + load <= self.task.lst_retailers[retailer_id].capacity:
 				return retailer_id
 		return -1
 
-	@jit(nopython=True)
 	def eval(self) -> float:
 		cost = 0
 		for dc_id in range(self.task.num_dcs):
@@ -178,25 +171,22 @@ class Individual:
 				cost += self.direct_deli_t2_cost(plant_id, dc_id, retailer_id, customer_id)
 		return cost
 
-	@jit(nopython=True)
 	def normal_deli_cost(self, plant_id:int, dc_id:int, retailer_id:int, customer_id:int) -> float:
 		plant, dc, retailer, customer = get_route_entities(self.task, plant_id, dc_id, retailer_id, customer_id)
 		load = customer.demand
 		return load * (dist(plant, dc) + dist(dc, retailer) + dist(retailer, customer) + 3 * self.task.b[0]) * self.task.a[0]
 
-	@jit(nopython=True)
 	def direct_deli_t1_cost(self, plant_id:int, dc_id:int, retailer_id:int, customer_id:int) -> float:
 		plant, dc, retailer, customer = get_route_entities(self.task, plant_id, dc_id, retailer_id, customer_id)
 		load = customer.demand
 		return load * (dist(plant, dc) + dist(dc, customer) + 2 * self.task.b[2]) * self.task.a[2]
 
-	@jit(nopython=True)
+
 	def direct_deli_t2_cost(self, plant_id:int, dc_id:int, retailer_id:int, customer_id:int) -> float:
 		plant, dc, retailer, customer = get_route_entities(self.task, plant_id, dc_id, retailer_id, customer_id)
 		load = customer.demand
 		return load * (dist(plant, retailer) + dist(retailer, customer) + 2 * self.task.b[3]) * self.task.a[3]
 
-	@jit(nopython=True)
 	def direct_ship_cost(self, plant_id:int, dc_id:int, retailer_id:int, customer_id:int) -> float:
 		plant, dc, retailer, customer = get_route_entities(self.task, plant_id, dc_id, retailer_id, customer_id)
 		load = customer.demand

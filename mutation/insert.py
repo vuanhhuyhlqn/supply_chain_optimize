@@ -7,7 +7,6 @@ class InsertionMutation:
 	def __init__(self):
 		super().__init__()
 		
-	@jit(nopython=True)
 	def mutation(self, p:Individual, deli_mut_rate=0.3) -> Individual:
 		off : Individual = Individual(p.task, p.gene, p.deli_types)
 

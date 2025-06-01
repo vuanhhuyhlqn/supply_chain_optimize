@@ -7,7 +7,6 @@ class TwoCutCrossover(AbstractCrossover):
     def __init__(self):
         super().__init__()
         
-    @jit(nopython=True)
     def crossover(self, pa:Individual, pb:Individual) -> Individual:
         gene_a, gene_b = pa.gene, pb.gene
         gene_o = gene_a.copy()
