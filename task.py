@@ -65,19 +65,19 @@ def pickle_task(task: Task, file_path):
 		pickle.dump(task, f) # serialize the list
 
 def load_small_task(id: int):
-	file_path = "./instance/small/small_task_{0}".format(id)
-	with open(file_path, 'wb') as f:
+	file_path = "./instance/small/small_task_{0}.pkl".format(id)
+	with open(file_path, 'rb') as f:
 		task = pickle.load(f)
 		return task
 
 def load_medium_task(id: int):
-	file_path = "./instance/medium/medium_task_{0}".format(id)
-	with open(file_path, 'wb') as f:
+	file_path = "./instance/medium/medium_task_{0}.pkl".format(id)
+	with open(file_path, 'rb') as f:
 		task = pickle.load(f)
 		return task
 
 def load_large_task(id: int):
-	file_path = "./instance/large/large_task_{0}".format(id)
-	with open(file_path, 'wb') as f:
+	file_path = "./instance/large/large_task_{0}.pkl".format(id)
+	with open(file_path, 'rb') as f:
 		task = pickle.load(f)
 		return task
