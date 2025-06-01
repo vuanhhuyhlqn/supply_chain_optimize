@@ -9,7 +9,10 @@ class TwoCutCrossover(AbstractCrossover):
     def crossover(self, pa:Individual, pb:Individual) -> Individual:
         gene_a, gene_b = pa.gene, pb.gene
         gene_o = gene_a.copy()
+
         deli_types_o = pa.deli_types.copy()
+        rnd = np.random.uniform(size=deli_types_o.shape)
+        deli_types_o[rnd < 0.5] = pb.deli_types[rnd < 0.5]
 
         fi_cut : int = np.random.randint(0, pa.task.num_customers) * 3
         se_cut : int = np.random.randint(0, pa.task.num_customers) * 3

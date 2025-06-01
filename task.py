@@ -22,7 +22,32 @@ class Task:
 		self.a = np.random.uniform(0.8, 1.2, size=4)
 		b_max = 500
 		self.b = np.random.uniform(0, b_max, size=4)
+	
+	def check_condition(self) -> bool:
+		total_demand = 0
+		for customer in self.lst_customers:
+			total_demand += customer.demand
 		
+		total_plant_output = 0
+		for plant in self.lst_plants:
+			total_plant_output += plant.output
+		
+		# total_dc_cap = 0
+		# for dc in self.lst_dcs:
+		# 	total_dc_cap += dc.capacity
+
+		# total_retailer_cap = 0
+		# for retailer in self.lst_retailers:
+		# 	total_retailer_cap += retailer.capacity
+
+		if total_demand > total_plant_output:
+			return False
+		# if total_demand > total_dc_cap:
+		# 	return False
+		# if total_demand > total_retailer_cap:
+		# 	return False
+		return True
+
 	def add_plant(self, plant: Plant):
 		self.lst_plants.append(plant)
 	

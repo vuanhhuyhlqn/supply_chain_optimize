@@ -51,7 +51,7 @@ class TaskGenerator:
         coord_lb = self.coord_bounds[0]
         coord_ub = self.coord_bounds[1]
 
-        for i in range(self.num_tasks):
+        while len(lst_tasks) < self.num_tasks:
             task = Task(num_entities=self.num_entities,
                         num_plants=self.num_plants,
                         num_dcs=self.num_dcs,
@@ -149,6 +149,6 @@ class TaskGenerator:
                                     demand=customer_demand)
 
                 task.add_customer(customer)
-            
-            lst_tasks.append(task)
+            if task.check_condition() == True:
+                lst_tasks.append(task)
         return lst_tasks

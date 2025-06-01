@@ -211,15 +211,17 @@ class Individual:
 	def get_dc_stock(self, dc_id) -> int:
 		res = 0
 		for cid in range(self.task.num_customers):
-			if self.gene[cid * 3 + 1] == dc_id:
-				res += self.task.lst_customers[cid].demand
+			if self.deli_types[cid] == 0 or self.deli_types[cid] == 2:
+				if self.gene[cid * 3 + 1] == dc_id:
+					res += self.task.lst_customers[cid].demand
 		return res
 	
 	def get_retailer_stock(self, retailer_id) -> int:
 		res = 0
 		for cid in range(self.task.num_customers):
-			if self.gene[cid * 3 + 2] == retailer_id:
-				res += self.task.lst_customers[cid].demand
+			if self.deli_types[cid] == 0 or self.deli_types[cid] == 3:
+				if self.gene[cid * 3 + 2] == retailer_id:
+					res += self.task.lst_customers[cid].demand
 		return res
 
 	def __lt__(self, other):
