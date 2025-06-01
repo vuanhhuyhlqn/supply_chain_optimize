@@ -18,7 +18,8 @@ class Task:
 		self.lst_dcs : List[DC] = []
 		self.lst_retailers : List[Retailer] = []
 		self.lst_customers : List[Customer] = []
+		
+		self.coefficient_matrix = np.zeros(shape=(self.num_entities, self.num_entities))
+		
 
-        
-
-        
+		
