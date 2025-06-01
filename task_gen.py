@@ -58,7 +58,7 @@ class TaskGenerator:
                         num_retailers=self.num_retailers,
                         num_customers=self.num_customers)
             entity_cnt = 0
-            for plant_id in range(self.num_plants):
+            for i in range(self.num_plants):
                 entity_cnt += 1
 
                 # Plant output bounds
@@ -67,10 +67,37 @@ class TaskGenerator:
 
                 coord_x = np.random.uniform(coord_lb, coord_ub)
                 coord_y = np.random.uniform(coord_lb, coord_ub)
-                output = np.random.uniform(plant_output_lb, plant_output_ub)
+                output = np.random.randint(plant_output_lb, plant_output_ub)
                 plant = Plant(entity_id=entity_cnt, coord_x=coord_x, coord_y=coord_y, output=output)
                 
                 task.add_plant(plant)
 
-            
-            
+            for i in range(self.num_dcs):
+                entity_cnt += 1
+
+                # DC capacity bounds
+                dc_cap_lb = self.dc_cap_bounds[0]
+                dc_cap_ub = self.dc_cap_bounds[1]
+
+                # DC lease cost bounds
+                dc_lease_cost_lb = self.dc_lease_cost_bounds[0]
+                dc_lease_cost_ub = self.dc_lease_cost_bounds[1]
+
+                # DC lease cost bounds
+                dc_open_cost_lb = self.dc_open_cost_bounds[0]
+                dc_open_cost_ub = self.dc_open_cost_bounds[1]
+                
+                coord_x = np.random.uniform(coord_lb, coord_ub)
+                coord_y = np.random.uniform(coord_lb, coord_ub)
+                dc_cap = np.random.randint(dc_cap_lb, dc_cap_ub)
+                dc_lease_cost = np.random.uniform(dc_lease_cost_lb, dc_lease_cost_ub)
+                dc_open_cost = np.random.uniform(dc_open_cost_lb, dc_open_cost_ub)
+
+                dc = DC(entity_id=entity_cnt, 
+                        coord_x=coord_x, 
+                        coord_y=coord_y, 
+                        capacity=dc_cap, 
+                        lease_cost=dc_lease_cost, 
+                        open_cost=dc_open_cost)
+                
+                task.add_dc(dc)
