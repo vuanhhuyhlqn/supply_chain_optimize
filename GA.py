@@ -37,7 +37,7 @@ class Model:
             indi.fitness = indi.eval()
             self.pop.append(indi)
 
-    def fit(self, num_gen, num_crossover, num_mutation, numls, monitor=True, monitor_rate=5):
+    def fit(self, num_gen, num_crossover, num_mutation, num_ls, monitor=True, monitor_rate=5):
         for gen in range(num_gen + 1):
             #crossover
             off_cr : List[Individual] = []
@@ -65,8 +65,8 @@ class Model:
             self.pop = sorted(self.pop)
 
             off_ls : List[Individual] = []
-            while len(off_ls) < numls:
-                p = self.get_random_indi(range=numls * 2)
+            while len(off_ls) < num_ls:
+                p = self.get_random_indi()
                 ols = self.localsearch(p)
                 while ols.check_valid == False:
                     ols.fix()
@@ -79,16 +79,17 @@ class Model:
             
             best_fitness = self.pop[0].fitness
 
-            if len(self.bfs) > 10:
-                if isclose(best_fitness, self.bfs[-10]):
-                    print("EARLY STOP")
+            if len(self.bfs) > 5:
+                if isclose(best_fitness, self.bfs[-5]):
+                    if monitor:
+                        print("EARLY STOP")
                     # print("Best found solution:")
                     # print(self.pop[0])
 
                     return self.bfs, self.pop[0]
 
             self.bfs.append(best_fitness)
-            if gen % monitor_rate == 0:
+            if monitor and gen % monitor_rate == 0:
                 print(f"Gen {gen}: best fitness {best_fitness}")
 
         # print("Best found solution:")
