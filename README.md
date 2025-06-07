@@ -1,2 +1,2 @@
-# project2_supply_chain_optimize
+# supply_chain_optimize
 
