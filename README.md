@@ -32,7 +32,10 @@ To benchmark the algorithm, a number of tasks with 3 sizes (small, medium, large
 Each task is optimized with 10 independent runs with 4 different parameter settings (population size, number of local search each generation) and 2 crossover operations.
 
 Two-cut crossover
+* Small tasks
 ![small tasks two cut](img/small_task_twocut.png)
+* Medium tasks
 ![medium tasks two cut](img/medium_task_twocut.png)
+* Large tasks
 ![large tasks two cut](img/large_task_twocut.png)
 
