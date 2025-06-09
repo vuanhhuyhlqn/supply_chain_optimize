@@ -39,3 +39,10 @@ Two-cut crossover
 * Large tasks
 ![large tasks two cut](img/large_task_twocut.png)
 
+Combinatorial crossover
+* Small tasks
+![small tasks two cut](img/small_task_combinatorial.png)
+* Medium tasks
+![medium tasks two cut](img/medium_task_combinatorial.png)
+* Large tasks
+![large tasks two cut](img/large_task_combinatorial.png)
