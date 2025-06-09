@@ -15,7 +15,15 @@ There're 4 types of delivery the network can use:
 ## The evolutionary algorithm approach
 Consider each design of the network mentioned above as an individual in a population, the project uses crossover, mutation and elitism selection mechanism to evolve the population and achieve the individual with the best fitness (the network's design with minimum cost).
 
-In the process of evolution, i also apply a self-fixing mechanism to fix those individuals that do not satisfy the supply chain network's constraints.
+In the process of evolution, i also applied a self-fixing mechanism to fix those individuals that do not satisfy the supply chain network's constraints.
 
+## Experiment Results
+To benchmark the algorithm, a number of tasks with 3 sizes (small, medium, large) is generated.
 
+### Small Tasks
+![small tasks](img/task/small.png)
+### Medium Tasks
+![medium tasks](img/task/medium.png)
+### Large Tasks
+![large tasks](img/task/large.png)
 
