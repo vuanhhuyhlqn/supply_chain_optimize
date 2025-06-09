@@ -20,10 +20,19 @@ In the process of evolution, i also applied a self-fixing mechanism to fix those
 ## Experiment Results
 To benchmark the algorithm, a number of tasks with 3 sizes (small, medium, large) is generated.
 
-### Small Tasks
+### Problem settings
+####Small Tasks
 ![small tasks](img/task/small.png)
-### Medium Tasks
+#### Medium Tasks
 ![medium tasks](img/task/medium.png)
-### Large Tasks
+#### Large Tasks
 ![large tasks](img/task/large.png)
+
+#### Results
+Each task is optimized with 10 independent runs with 4 different parameter settings (population size, number of local search each generation) and 2 crossover operations.
+
+Two-cut crossover
+![small tasks two cut](img/small_task_twocut.png)
+![medium tasks two cut](img/medium_task_twocut.png)
+![large tasks two cut](img/large_task_twocut.png)
 
