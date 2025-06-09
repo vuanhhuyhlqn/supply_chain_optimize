@@ -21,7 +21,7 @@ In the process of evolution, i also applied a self-fixing mechanism to fix the d
 To benchmark the algorithm, a number of tasks with 3 sizes (small, medium, large) is generated.
 
 ### Problem settings
-####Small Tasks
+#### Small Tasks
 ![small tasks](img/task/small.png)
 #### Medium Tasks
 ![medium tasks](img/task/medium.png)
